@@ -5,6 +5,7 @@
 package library;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -25,13 +26,28 @@ public class home extends javax.swing.JFrame {
          initComponents();
          setViewData();
     }
+     
+    
     
     public String loginname;
-    public home(String name){
+    public home(String username){
         initComponents();
-        this.loginname=name;
+        this.loginname=username;
         getusername.setText(String.valueOf(loginname));
     }
+   
+    public static Connection myConnection(){
+    Connection con = null;
+    try{
+        Class.forName("com.mysql.jdbc.Driver");
+        String connectionUrl="jdbc:mysql://localhost:3306/library?"+"user=root&&password=";
+        con=DriverManager.getConnection(connectionUrl);
+        }   catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return con;
+    }
+    
  private void setViewData(){
 
     Connection con = myConnection();
@@ -71,6 +87,11 @@ public class home extends javax.swing.JFrame {
             Logger.getLogger(managebooks.class.getName()).log(Level.SEVERE, null, ex);
         }
   }
+ public void clearTable(){
+        DefaultTableModel tblModel=(DefaultTableModel)rSTableMetro1.getModel();
+
+                 tblModel.setRowCount(0);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

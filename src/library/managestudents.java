@@ -73,7 +73,7 @@ private void resetData(){
 
            while(rs.next()){
 
-                   String id  = String.valueOf(rs.getInt("s_id"));
+                   String id  = String.valueOf(rs.getInt("std_id"));
 
                    String nm = rs.getString("sname");
 
@@ -272,7 +272,7 @@ private void resetData(){
             try{
                 PreparedStatement prest;
 
-                String sql ="delete from newstudent where s_id="+s_id;
+                String sql ="delete from newstudent where std_id="+s_id;
 
                 prest= con.prepareStatement(sql);
 
@@ -305,7 +305,7 @@ private void resetData(){
 
             PreparedStatement prest;
 
-            String sql ="select * from newstudent where s_id="+s_id;
+            String sql ="select * from newstudent where std_id="+s_id;
 
             prest= con.prepareStatement(sql);
 

@@ -170,7 +170,7 @@ public class login extends javax.swing.JFrame {
             PreparedStatement prest,prest1;
             String sql = "SELECT username , password FROM login WHERE username='"+name+"' AND password='"+pass+"'";
 
-            String asql = "SELECT aname , apassword FROM admin WHERE aname='"+name+ "' AND apassword='"+pass+"'";
+            String asql = "SELECT username , password FROM admin WHERE username='"+name+ "' AND password='"+pass+"'";
 
             prest = con.prepareStatement(sql);
            prest1 = con.prepareStatement(asql);

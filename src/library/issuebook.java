@@ -28,33 +28,32 @@ public class issuebook extends javax.swing.JFrame {
      */
     public issuebook() {
         initComponents();
-     //   getBookDetails();
-       // getStudentDetails();
-        
-    
+        //   getBookDetails();
+        // getStudentDetails();
+
     }
-     public String loginname;
-    public issuebook(String name){
+    public String loginname;
+
+    public issuebook(String name) {
         initComponents();
-        this.loginname=name;
+        this.loginname = name;
     }
-    
-    
- public static Connection myConnection(){
-    Connection con = null;
-    try{
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        String connectionUrl="jdbc:mysql://localhost:3306/library?"+"user=root&&password=";
-        con=DriverManager.getConnection(connectionUrl);
-        }   catch (ClassNotFoundException | SQLException ex) {
+
+    public static Connection myConnection() {
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String connectionUrl = "jdbc:mysql://localhost:3306/library?" + "user=root&&password=";
+            con = DriverManager.getConnection(connectionUrl);
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
         return con;
-}
+    }
 //  private int book_id;
 //  private int student_id;
-  
-  /*boolean tryParseInt(String value) {  
+
+    /*boolean tryParseInt(String value) {  
      try {  
          Integer.parseInt(value);  
          return true;  
@@ -62,18 +61,14 @@ public class issuebook extends javax.swing.JFrame {
          return false;  
       }  
 }*/
-  
  /* int value = -1;
 try {
     value = Integer.parseInt(myString);
 } catch (NumberFormatException e) {
     // The format was incorrect
 }*/
-  // book details 
-  
- //students detail
- 
-
+    // book details 
+    //students detail
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,7 +120,6 @@ try {
         jLabel26 = new javax.swing.JLabel();
         jCTextField4 = new app.bolivia.swing.JCTextField();
         jLabel27 = new javax.swing.JLabel();
-        rSDateChooser2 = new rojeru_san.componentes.RSDateChooser();
         jLabel28 = new javax.swing.JLabel();
         I = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -401,11 +395,6 @@ try {
         jLabel27.setText("Student id   :");
         jPanel3.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 130, -1));
 
-        rSDateChooser2.setBackground(new java.awt.Color(255, 51, 51));
-        rSDateChooser2.setColorBackground(new java.awt.Color(255, 51, 51));
-        rSDateChooser2.setPlaceholder("issue date");
-        jPanel3.add(rSDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, -1, 30));
-
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 0, 390, 700));
 
         jLabel28.setBackground(new java.awt.Color(255, 204, 204));
@@ -438,12 +427,8 @@ try {
             }
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 70, -1));
-
-        rd.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 0, 51)));
-        jPanel1.add(rd, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 470, 240, 30));
-
-        id.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 0, 51)));
-        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 412, 240, 30));
+        jPanel1.add(rd, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 480, 230, -1));
+        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, 230, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 0, 390, 700));
 
@@ -458,24 +443,18 @@ try {
 
     private void bdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bdActionPerformed
         // TODO add your handling code here:
-       // getBookDetails();
-     //  public void getBookDetails(){
-      
-       
-      
-     
-     
+        // getBookDetails();
+        //  public void getBookDetails(){
+
 
     }//GEN-LAST:event_bdActionPerformed
 
     private void sdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sdActionPerformed
         // TODO add your handling code here:
-      //  getStudentDetails();
-    //  public void getStudentDetails(){
-     
-     
-     
- 
+        //  getStudentDetails();
+        //  public void getStudentDetails(){
+
+
     }//GEN-LAST:event_sdActionPerformed
 
     private void jCTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCTextField3ActionPerformed
@@ -489,13 +468,12 @@ try {
     private void IActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IActionPerformed
         // TODO add your handling code here:
         Connection con = myConnection();
-        try{
+        try {
             String bid = bd.getText();
             String sid = sd.getText();
             String bookn = bt.getText();
             String student = sn.getText();
-            
-            
+
 //            String y String ca = id.getText();
 //           r = rd.get();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -503,35 +481,34 @@ try {
             date1 = sdf.format(rd.getDate());
 
             PreparedStatement prest;
-            String book = "INSERT INTO issue(book_id,bname,student_id,student_name,i_date,d_date)VALUES('"+bid+"','"+bookn+"','"+sid+"','"+student+"','"+date+"','"+date1+"')";
-            prest = con.prepareStatement(book); 
-            
+            String book = "INSERT INTO issue(book_id,bname,student_id,student_name,i_date,d_date)VALUES('" + bid + "','" + bookn + "','" + sid + "','" + student + "','" + date + "','" + date1 + "')";
+            prest = con.prepareStatement(book);
+
             int count = prest.executeUpdate();
-            if (count>0)
-            {
+            if (count > 0) {
                 int i = okcancel("Book has been added.");
-                System.out.println("ret" +i);
+                System.out.println("ret" + i);
                 dispose();
                 new issuebook().setVisible(true);
                 con.close();
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(newbook.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_IActionPerformed
 
     private void sdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sdFocusLost
         // TODO add your handling code here:
-      /*  if(!sd.getText().equals(" ")){
+        /*  if(!sd.getText().equals(" ")){
             sdActionPerformed(java.);
         }*/
     }//GEN-LAST:event_sdFocusLost
 
     private void bdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_bdFocusLost
         // TODO add your handling code here:
-       /* if(!bd.getText().equals(" ")){
+        /* if(!bd.getText().equals(" ")){
                  getBookDetails();
         }*/
     }//GEN-LAST:event_bdFocusLost
@@ -574,125 +551,113 @@ try {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling cConnection con = myConnection();
-     Connection con=myConnection();
-      
-       try {
+        
+        Connection con = myConnection();
+        
+        try {
             PreparedStatement prest;
             int book_id = Integer.parseInt(bd.getText());
-             
-            String issue ="select * from addbook where b_id= "+book_id;
+            String issue = "select * from addbook where s_id= " + book_id;
 
-            prest= con.prepareStatement(issue);
-          //  prest.setInt(1,book_id);
+            prest = con.prepareStatement(issue);
+            //  prest.setInt(1,book_id);
 
             ResultSet rs = prest.executeQuery();// PreparedStatement object’s executeQuery () method is called to execute the SQL SELECT statement, returning a ResultSet into rs.
-            
+
             if (rs.next()) {
                 int i = okcancel("Searching...");
                 System.out.println("ret:" + i);
-            
-            while(rs.next()){
+
+               
+
+                    // bid.setText(String.valueOf(rs.getInt("b_id")));//
+                    bid1.setText(rs.getString("s_id"));
+                    bt.setText(rs.getString("bname"));
+                    ba.setText(rs.getString("bauthor"));
+                    bc.setText(rs.getString("bcategory"));
+                    by2.setText(rs.getString("byear"));
                 
-              // bid.setText(String.valueOf(rs.getInt("b_id")));//
-                bid1.setText(rs.getString("b_id"));
-                bt.setText(rs.getString("bname"));
-                ba.setText(rs.getString("bauthor"));
-                bc.setText(rs.getString("bcategory"));
-                by2.setText(rs.getString("byear"));
-             }
-            }
-             else {
+            } else {
                 int j = okcancel("wrong");
                 System.out.println("ret:" + j);
                 con.close();
                 bd.setText("");
                 sd.setText("");
             }
-            
-            
 
             rs.close();
 
             prest.close();
-       } catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(issuebook.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             {
                 e.getMessage();  //You can use anyone like printStackTrace() ,getMessage() to handle the Exception
-             }
+            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-int student_id = Integer.parseInt(sd.getText());
+        int student_id = Integer.parseInt(sd.getText());
 
-      
-       try {
-           Connection con = myConnection();
-           PreparedStatement prest1;
-            
-               
-            String issues ="select * from newstudent where s_id="+student_id;
-             
-            prest1= con.prepareStatement(issues);
-           // prest1.setInt(1, student_id);
+        try {
+            Connection con = myConnection();
+            PreparedStatement prest1;
+
+            String issues = "select * from newstudent where std_id=" + student_id;
+
+            prest1 = con.prepareStatement(issues);
+            // prest1.setInt(1, student_id);
 
             ResultSet rs = prest1.executeQuery();// PreparedStatement object’s executeQuery () method is called to execute the SQL SELECT statement, returning a ResultSet into rs.
-       
-         if (rs.next()) {
+
+            if (rs.next()) {
                 int i = okcancel("Searching...");
                 System.out.println("ret:" + i);
-                
+
                 // while(rs.next()){
-             
-               // sid.setText(String.valueOf(rs.getInt("s_id")));// Retrieves value of the second column in the current row, which is the username field
-                sid.setText(rs.getString("s_id"));
-               sn.setText(rs.getString("sname"));
+                // sid.setText(String.valueOf(rs.getInt("s_id")));// Retrieves value of the second column in the current row, which is the username field
+                sid.setText(rs.getString("std_id"));
+                sn.setText(rs.getString("sname"));
                 sbr.setText(rs.getString("sbranch"));
                 sbt.setText(rs.getString("sbatch"));
-               // by.setText(rs.getString(6));
+                // by.setText(rs.getString(6));
 
-             
-          // }
-            // }
-               
+                // }
+                // }
 //                  String loginname=n.getText();
 //                   // new home(loginname).setVisible(true);
 //                    dispose();
 //                    new home(loginname).setVisible(true);
 //                    con.close();
-            }
-              
-//           else if(sd.getText().equals("  ")){
-//                  int t = okcancel("Enter any id..");
-//                   System.out.println("ret:" + t);
-//                   con.close();
-//                  bd.setText("");
-//                sd.setText("");
-//                }
-          else {
+            } //           else if(sd.getText().equals("  ")){
+            //                  int t = okcancel("Enter any id..");
+            //                   System.out.println("ret:" + t);
+            //                   con.close();
+            //                  bd.setText("");
+            //                sd.setText("");
+            //                }
+            else {
                 int j = okcancel("wrong");
                 System.out.println("ret:" + j);
                 con.close();
                 bd.setText("");
                 sd.setText("");
             }
-           
+
 //          else{
 //               System.out.println("No id exists");
 //          }
 
-           /* rs.close();
+            /* rs.close();
 
             prest1.close();*/
-       } catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(issuebook.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             {
                 e.getMessage();  //You can use anyone like printStackTrace() ,getMessage() to handle the Exception
-             }
+            }
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -724,12 +689,12 @@ int student_id = Integer.parseInt(sd.getText());
         //</editor-fold>
 
         /* Create and display the form */
-        /* Create and display the form */
+ /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new issuebook().setVisible(true);
             }
-            
+
         });
     }
 
@@ -776,7 +741,6 @@ int student_id = Integer.parseInt(sd.getText());
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private rojeru_san.componentes.RSDateChooser rSDateChooser2;
     private com.toedter.calendar.JDateChooser rd;
     private javax.swing.JTextField sbr;
     private javax.swing.JTextField sbt;

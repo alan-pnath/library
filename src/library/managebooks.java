@@ -29,7 +29,7 @@ public class managebooks extends javax.swing.JFrame {
         resetData();
         setPersonTableData();
     }
-    private int b_id;
+    private int s_id;
     
      private void resetData(){
      t.setText("");
@@ -74,7 +74,7 @@ private void setPersonTableData(){
 
            while(rs.next()){
 
-                   String id  = String.valueOf(rs.getInt("b_id"));
+                   String id  = String.valueOf(rs.getInt("s_id"));
 
                    String fn = rs.getString("bname");
 
@@ -277,11 +277,11 @@ private void setPersonTableData(){
         // TODO add your handling code here:
         Connection con = myConnection();
       
-        if(b_id!=0){
+        if(s_id!=0){
             try{
                PreparedStatement prest;
 
- String sql ="delete from addbook where b_id="+b_id;
+ String sql ="delete from addbook where b_id="+s_id;
 
 prest= con.prepareStatement(sql);
 
@@ -305,7 +305,7 @@ prest= con.prepareStatement(sql);
     private void rSTableMetro1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rSTableMetro1MouseClicked
         // TODO add your handling code here:
         
-       b_id=Integer.parseInt(rSTableMetro1.getValueAt(rSTableMetro1.getSelectedRow(),0).toString());
+       s_id=Integer.parseInt(rSTableMetro1.getValueAt(rSTableMetro1.getSelectedRow(),0).toString());
 
 //System.out.println(id);
 
@@ -315,7 +315,7 @@ try{
 
 PreparedStatement prest;
 
-String sql ="select * from addbook where b_id="+b_id;
+String sql ="select * from addbook where b_id="+s_id;
 
 prest= con.prepareStatement(sql);
 

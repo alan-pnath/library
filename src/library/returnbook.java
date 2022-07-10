@@ -396,7 +396,7 @@ public class returnbook extends javax.swing.JFrame {
             if (rs.next()) {
                 int i = okcancel("Searching...");
                 System.out.println("ret:" + i);
-            while(rs.next()){
+            
                 
               // bid.setText(String.valueOf(rs.getInt("b_id")));//
                 id.setText(rs.getString("issue_id"));
@@ -404,7 +404,7 @@ public class returnbook extends javax.swing.JFrame {
                 sn.setText(rs.getString("student_name"));
                 is.setText(rs.getString("i_date"));
                 rd.setText(rs.getString("d_date"));
-             }
+             
             }
             else {
                 int j = okcancel("wrong");

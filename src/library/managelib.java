@@ -277,7 +277,7 @@ private void setPersonTableData() {
             try{
                 PreparedStatement prest;
 
-                String sql ="delete from login where user_id="+user_id;
+                String sql ="delete from login where id="+user_id;
 
                 prest= con.prepareStatement(sql);
 
@@ -310,7 +310,7 @@ private void setPersonTableData() {
 
             PreparedStatement prest;
 
-            String sql ="select * from login where user_id="+user_id;
+            String sql ="select * from login where id="+user_id;
 
             prest= con.prepareStatement(sql);
 

@@ -100,7 +100,7 @@ public class admin extends javax.swing.JFrame {
 
        while(rs.next()){
 
-              String id  = String.valueOf(rs.getInt("s_id"));
+              String id  = String.valueOf(rs.getInt("std_id"));
 
               String nm = rs.getString("sname");
 
@@ -139,7 +139,7 @@ public class admin extends javax.swing.JFrame {
 
            while(rs.next()){
 
-             String id  = String.valueOf(rs.getInt("b_id"));
+             String id  = String.valueOf(rs.getInt("s_id"));
 
               String fn = rs.getString("bname");
 
@@ -387,7 +387,7 @@ public class admin extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/home_24px.png"))); // NOI18N
         jLabel4.setText("Dashboard");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 170, -1));
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 170, 30));
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 210, 40));
 
