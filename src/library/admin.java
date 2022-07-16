@@ -29,41 +29,46 @@ public class admin extends javax.swing.JFrame {
     /**
      * Creates new form admin
      */
-    Color mouseEnterColor = new Color(0,0,0);
-    Color mouseExitColor = new Color(51,51,51);
-    
+    Color mouseEnterColor = new Color(0, 0, 0);
+    Color mouseExitColor = new Color(51, 51, 51);
+
     public admin() {
         initComponents();
         showPieChart();
         setBookTableData();
         setStudentTableData();
+        nbData();
+        nsData();
+        niData();
     }
-    public void showPieChart(){
-        
+    
+                                  
+
+
+    public void showPieChart() {
+
         //create dataset
-          //create dataset 
-     DefaultPieDataset barDataset = new DefaultPieDataset( );
-    //explain
-      
-     
-      barDataset.setValue( "IPhone 5s" , new Double ( 20 ) );  
-      barDataset.setValue( "SamSung Grand" , new Double( 20 ) );   
-      barDataset.setValue( "MotoG" , new Double( 40 ) );    
-      barDataset.setValue( "Nokia Lumia" , new Double( 10 ) );   
-      
-      //create chart
-       JFreeChart piechart = ChartFactory.createPieChart("mobile sales",barDataset, false,true,false);
-        PiePlot piePlot =(PiePlot) piechart.getPlot();
-      
-       //changing pie chart blocks colors
-       piePlot.setSectionPaint("IPhone 5s", new Color(255,255,102));
-        piePlot.setSectionPaint("SamSung Grand", new Color(102,255,102));
-        piePlot.setSectionPaint("MotoG", new Color(255,102,153));
-        piePlot.setSectionPaint("Nokia Lumia", new Color(0,204,204));
-      
-       
+        //create dataset 
+        DefaultPieDataset barDataset = new DefaultPieDataset();
+        //explain
+
+        barDataset.setValue("IPhone 5s", new Double(20));
+        barDataset.setValue("SamSung Grand", new Double(20));
+        barDataset.setValue("MotoG", new Double(40));
+        barDataset.setValue("Nokia Lumia", new Double(10));
+
+        //create chart
+        JFreeChart piechart = ChartFactory.createPieChart("mobile sales", barDataset, false, true, false);
+        PiePlot piePlot = (PiePlot) piechart.getPlot();
+
+        //changing pie chart blocks colors
+        piePlot.setSectionPaint("IPhone 5s", new Color(255, 255, 102));
+        piePlot.setSectionPaint("SamSung Grand", new Color(102, 255, 102));
+        piePlot.setSectionPaint("MotoG", new Color(255, 102, 153));
+        piePlot.setSectionPaint("Nokia Lumia", new Color(0, 204, 204));
+
         piePlot.setBackgroundPaint(Color.white);
-        
+
         //create chartPanel to display chart(graph)
         ChartPanel barChartPanel = new ChartPanel(piechart);
         p.removeAll();
@@ -71,97 +76,174 @@ public class admin extends javax.swing.JFrame {
         p.validate();
     }
 
-    
-   public static Connection myConnection(){
-    Connection con = null;
-    try{
-        Class.forName("com.mysql.jdbc.Driver");
-        String connectionUrl="jdbc:mysql://localhost:3306/library?"+"user=root&&password=";
-        con=DriverManager.getConnection(connectionUrl);
-        }   catch (ClassNotFoundException | SQLException ex) {
+    public static Connection myConnection() {
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String connectionUrl = "jdbc:mysql://localhost:3306/library?" + "user=root&&password=";
+            con = DriverManager.getConnection(connectionUrl);
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
         return con;
-}
-   
-   private void setStudentTableData(){
+    }
+    
+    private void nbData(){
+         Connection con = myConnection();
 
-    Connection con = myConnection();
+        try {
 
-    try{
+            java.sql.PreparedStatement prest;
 
-       PreparedStatement prest;
+            String sql = "select count(*) from addbook";
 
-       String sql ="select * from newstudent";
+            prest = con.prepareStatement(sql);
 
-       prest= con.prepareStatement(sql);
+            ResultSet rs = prest.executeQuery(sql);
 
-       ResultSet rs = prest.executeQuery(sql);
+            rs.next();
+            int count = rs.getInt(1);
+            System.out.println("ret:" + count);
 
-       while(rs.next()){
+               
 
-              String id  = String.valueOf(rs.getInt("std_id"));
+                    // bid.setText(String.valueOf(rs.getInt("b_id")));//
+                
+                    nb.setText(String.valueOf(count));
+        }
+         catch (SQLException ex) {
+            Logger.getLogger(issuebook.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
+    
+    private void nsData(){
+         Connection con = myConnection();
 
-              String nm = rs.getString("sname");
+        try {
 
-              String bch = rs.getString("sbranch");
+            java.sql.PreparedStatement prest;
 
-              String bct = rs.getString("sbatch");
-                 // String y  = String.valueOf(rs.getInt("byear"));
-            
+            String sql = "select count(*) from newstudent";
 
-              String tbData1[]={id,nm,bch,bct};
+            prest = con.prepareStatement(sql);
 
-              DefaultTableModel tblModel1=(DefaultTableModel)rSTableMetro3.getModel();
+            ResultSet rs = prest.executeQuery(sql);
 
-              tblModel1.addRow(tbData1);
-          }
-            } catch (SQLException ex) {
+            rs.next();
+            int count = rs.getInt(1);
+            System.out.println("ret:" + count);
+
+               
+
+                    // bid.setText(String.valueOf(rs.getInt("b_id")));//
+                
+                    ns.setText(String.valueOf(count));
+        }
+         catch (SQLException ex) {
+            Logger.getLogger(issuebook.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
+    private void niData(){
+         Connection con = myConnection();
+
+        try {
+
+            java.sql.PreparedStatement prest;
+
+            String sql = "select count(*) from issue";
+
+            prest = con.prepareStatement(sql);
+
+            ResultSet rs = prest.executeQuery(sql);
+
+            rs.next();
+            int count = rs.getInt(1);
+            System.out.println("ret:" + count);
+
+               
+
+                    // bid.setText(String.valueOf(rs.getInt("b_id")));//
+                
+                    ni.setText(String.valueOf(count));
+        }
+         catch (SQLException ex) {
+            Logger.getLogger(issuebook.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
+
+    private void setStudentTableData() {
+
+        Connection con = myConnection();
+
+        try {
+
+            PreparedStatement prest;
+
+            String sql = "select * from newstudent";
+
+            prest = con.prepareStatement(sql);
+
+            ResultSet rs = prest.executeQuery(sql);
+
+            while (rs.next()) {
+
+                String id = String.valueOf(rs.getInt("std_id"));
+
+                String nm = rs.getString("sname");
+
+                String bch = rs.getString("sbranch");
+
+                String bct = rs.getString("sbatch");
+                // String y  = String.valueOf(rs.getInt("byear"));
+
+                String tbData1[] = {id, nm, bch, bct};
+
+                DefaultTableModel tblModel1 = (DefaultTableModel) rSTableMetro3.getModel();
+
+                tblModel1.addRow(tbData1);
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(managestudents.class.getName()).log(Level.SEVERE, null, ex);
         }
-  }
+    }
 
+    private void setBookTableData() {
 
+        Connection con = myConnection();
 
-  private void setBookTableData(){
+        try {
 
-      Connection con = myConnection();
+            java.sql.PreparedStatement prest;
 
-       try{
+            String sql = "select * from addbook";
 
-           java.sql.PreparedStatement prest;
+            prest = con.prepareStatement(sql);
 
-           String sql ="select * from addbook";
+            ResultSet rs = prest.executeQuery(sql);
 
-           prest= con.prepareStatement(sql);
+            while (rs.next()) {
 
-           ResultSet rs = prest.executeQuery(sql);
+                String id = String.valueOf(rs.getInt("s_id"));
 
-           while(rs.next()){
+                String fn = rs.getString("bname");
 
-             String id  = String.valueOf(rs.getInt("s_id"));
+                String mn = rs.getString("bauthor");
 
-              String fn = rs.getString("bname");
+                String st = rs.getString("bcategory");
+                String y = String.valueOf(rs.getInt("byear"));
 
-              String mn = rs.getString("bauthor");
+                String tbData[] = {id, fn, mn, st, y};
 
-              String st = rs.getString("bcategory");
-              String y  = String.valueOf(rs.getInt("byear"));
-            
+                DefaultTableModel tblModel = (DefaultTableModel) rSTableMetro1.getModel();
 
-              String tbData[]={id,fn,mn,st,y};
-
-               DefaultTableModel tblModel=(DefaultTableModel)rSTableMetro1.getModel();
-
-                 tblModel.addRow(tbData);
-          }
-            } catch (SQLException ex) {
+                tblModel.addRow(tbData);
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(managebooks.class.getName()).log(Level.SEVERE, null, ex);
         }
-  }
+    }
 
-  
-      /**
+    /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
@@ -172,12 +254,12 @@ public class admin extends javax.swing.JFrame {
 
         jPanel5 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
+        ni = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        ns = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
+        nb = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -215,24 +297,34 @@ public class admin extends javax.swing.JFrame {
         jPanel13.setBorder(javax.swing.BorderFactory.createMatteBorder(20, 0, 0, 0, new java.awt.Color(255, 0, 0)));
         jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel13.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel13.setFont(new java.awt.Font("Segoe UI Black", 0, 50)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/icons8_Book_26px.png"))); // NOI18N
-        jLabel13.setText("0");
-        jPanel13.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 100, 50));
+        ni.setBackground(new java.awt.Color(102, 102, 102));
+        ni.setFont(new java.awt.Font("Segoe UI Black", 0, 50)); // NOI18N
+        ni.setForeground(new java.awt.Color(102, 102, 102));
+        ni.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/icons8_Book_26px.png"))); // NOI18N
+        ni.setText("0");
+        ni.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                niMouseClicked(evt);
+            }
+        });
+        jPanel13.add(ni, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 100, 50));
 
         jPanel5.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 70, 180, 130));
 
         jPanel11.setBorder(javax.swing.BorderFactory.createMatteBorder(20, 0, 0, 0, new java.awt.Color(255, 0, 0)));
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 50)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/icons8_Conference_26px.png"))); // NOI18N
-        jLabel5.setText("0");
-        jPanel11.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 100, 50));
+        ns.setBackground(new java.awt.Color(102, 102, 102));
+        ns.setFont(new java.awt.Font("Segoe UI Black", 0, 50)); // NOI18N
+        ns.setForeground(new java.awt.Color(102, 102, 102));
+        ns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/icons8_Conference_26px.png"))); // NOI18N
+        ns.setText("0");
+        ns.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nsMouseClicked(evt);
+            }
+        });
+        jPanel11.add(ns, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 100, 50));
 
         jPanel5.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 180, 130));
 
@@ -246,12 +338,17 @@ public class admin extends javax.swing.JFrame {
         jPanel12.setBorder(javax.swing.BorderFactory.createMatteBorder(20, 0, 0, 0, new java.awt.Color(255, 0, 0)));
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel12.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel12.setFont(new java.awt.Font("Segoe UI Black", 0, 50)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/icons8_Book_Shelf_50px.png"))); // NOI18N
-        jLabel12.setText("0");
-        jPanel12.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 100, 50));
+        nb.setBackground(new java.awt.Color(102, 102, 102));
+        nb.setFont(new java.awt.Font("Segoe UI Black", 0, 50)); // NOI18N
+        nb.setForeground(new java.awt.Color(102, 102, 102));
+        nb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/icons8_Book_Shelf_50px.png"))); // NOI18N
+        nb.setText("0");
+        nb.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nbMouseClicked(evt);
+            }
+        });
+        jPanel12.add(nb, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 100, 50));
 
         jPanel5.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 180, 130));
 
@@ -524,38 +621,38 @@ public class admin extends javax.swing.JFrame {
 
     private void l7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l7MouseClicked
         // TODO add your handling code here:
-      managelib lib = new managelib();
-      lib.setVisible(true);
-      dispose();
-      
+        managelib lib = new managelib();
+        lib.setVisible(true);
+        dispose();
+
     }//GEN-LAST:event_l7MouseClicked
 
     private void l8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l8MouseClicked
         // TODO add your handling code here:
-      managestudents stud = new managestudents();
-      stud.setVisible(true);
-      dispose();
-                  
-      
+        managestudents stud = new managestudents();
+        stud.setVisible(true);
+        dispose();
+
+
     }//GEN-LAST:event_l8MouseClicked
 
     private void p9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p9MouseClicked
         // TODO add your handling code here:
-      managebooks book = new managebooks();
-      book.setVisible(true);
-      dispose();
+        managebooks book = new managebooks();
+        book.setVisible(true);
+        dispose();
     }//GEN-LAST:event_p9MouseClicked
 
     private void p10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p10MouseClicked
         // TODO add your handling code here:
-      viewrecords view = new viewrecords();
-      view.setVisible(true);
-      dispose();
+        viewrecords view = new viewrecords();
+        view.setVisible(true);
+        dispose();
     }//GEN-LAST:event_p10MouseClicked
 
     private void l2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l2MouseClicked
         // TODO add your handling code here:
-         dispose();
+        dispose();
         login l = new login();
         l.show();
     }//GEN-LAST:event_l2MouseClicked
@@ -563,7 +660,7 @@ public class admin extends javax.swing.JFrame {
     private void rSTableMetro3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rSTableMetro3MouseClicked
         // TODO add your handling code here:
 
-   /*     s_id=Integer.parseInt(rSTableMetro1.getValueAt(rSTableMetro1.getSelectedRow(),0).toString());
+        /*     s_id=Integer.parseInt(rSTableMetro1.getValueAt(rSTableMetro1.getSelectedRow(),0).toString());
 
         //System.out.println(id);
 
@@ -603,7 +700,7 @@ public class admin extends javax.swing.JFrame {
     private void rSTableMetro1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rSTableMetro1MouseClicked
         // TODO add your handling code here:
 
-   /*     b_id=Integer.parseInt(rSTableMetro1.getValueAt(rSTableMetro1.getSelectedRow(),0).toString());
+        /*     b_id=Integer.parseInt(rSTableMetro1.getValueAt(rSTableMetro1.getSelectedRow(),0).toString());
 
         //System.out.println(id);
 
@@ -645,12 +742,14 @@ public class admin extends javax.swing.JFrame {
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
         // TODO add your handling code here:
+        dispose();
         new admin().setVisible(true);
+
     }//GEN-LAST:event_jPanel4MouseClicked
 
     private void l7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l7MouseEntered
         // TODO add your handling code here:
-        
+
         l7.setBackground(mouseEnterColor);
     }//GEN-LAST:event_l7MouseEntered
 
@@ -665,7 +764,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_l8MouseEntered
 
     private void l8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l8MouseExited
-       // TODO add your handling code here:
+        // TODO add your handling code here:
         l8.setBackground(mouseExitColor);
     }//GEN-LAST:event_l8MouseExited
 
@@ -685,61 +784,76 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_p10MouseEntered
 
     private void p10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p10MouseExited
-                 p10.setBackground(mouseExitColor);        // TODO add your handling code here:
+        p10.setBackground(mouseExitColor);        // TODO add your handling code here:
     }//GEN-LAST:event_p10MouseExited
 
     private void l2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l2MouseEntered
-                l2.setBackground(mouseEnterColor);        // TODO add your handling code here:
+        l2.setBackground(mouseEnterColor);        // TODO add your handling code here:
     }//GEN-LAST:event_l2MouseEntered
 
     private void p7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p7MouseClicked
         // TODO add your handling code here:
-      managelib lib = new managelib();
-      lib.setVisible(true);
-      dispose();
-      
-        
-        
+        managelib lib = new managelib();
+        lib.setVisible(true);
+        dispose();
+
+
     }//GEN-LAST:event_p7MouseClicked
 
     private void p7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p7MouseEntered
         // TODO add your handling code here:
-         p7.setBackground(mouseEnterColor);   
-        
+        p7.setBackground(mouseEnterColor);
+
     }//GEN-LAST:event_p7MouseEntered
 
     private void p7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p7MouseExited
         // TODO add your handling code here:
-         p7.setBackground(mouseExitColor);   
+        p7.setBackground(mouseExitColor);
     }//GEN-LAST:event_p7MouseExited
 
     private void p8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p8MouseClicked
         // TODO add your handling code here:
         managestudents stud = new managestudents();
-      stud.setVisible(true);
-      dispose();
+        stud.setVisible(true);
+        dispose();
     }//GEN-LAST:event_p8MouseClicked
 
     private void p8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p8MouseEntered
         // TODO add your handling code here:
-         p8.setBackground(mouseEnterColor);  
-        
+        p8.setBackground(mouseEnterColor);
+
     }//GEN-LAST:event_p8MouseEntered
 
     private void p8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p8MouseExited
         // TODO add your handling code here:
-         p8.setBackground(mouseExitColor);  
+        p8.setBackground(mouseExitColor);
     }//GEN-LAST:event_p8MouseExited
 
     private void p3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p3MouseEntered
         // TODO add your handling code here:
-      /*   p3.setBackground(mouseEnterColor);  */
+        /*   p3.setBackground(mouseEnterColor);  */
     }//GEN-LAST:event_p3MouseEntered
 
     private void p3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p3MouseExited
         // TODO add your handling code here:
-      /*   p3.setBackground(mouseExitColor);  */
+        /*   p3.setBackground(mouseExitColor);  */
     }//GEN-LAST:event_p3MouseExited
+
+    private void nbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nbMouseClicked
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_nbMouseClicked
+
+    private void nsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nsMouseClicked
+        // TODO add your handling code here:
+         
+       
+    }//GEN-LAST:event_nsMouseClicked
+
+    private void niMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_niMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_niMouseClicked
 
     /**
      * @param args the command line arguments
@@ -780,15 +894,12 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -804,6 +915,9 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel l2;
     private javax.swing.JLabel l7;
     private javax.swing.JLabel l8;
+    private javax.swing.JLabel nb;
+    private javax.swing.JLabel ni;
+    private javax.swing.JLabel ns;
     private javax.swing.JPanel p;
     private javax.swing.JPanel p10;
     private javax.swing.JPanel p3;

@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import static library.viewrecords.myConnection;
 
 /**
  *
@@ -23,75 +22,67 @@ public class home extends javax.swing.JFrame {
      * Creates new form home
      */
     public home() {
-         initComponents();
-         setViewData();
-    }
-     
-    
-    
-    public String loginname;
-    public home(String username){
         initComponents();
-        this.loginname=username;
+        IssueData();
+    }
+
+    public String loginname;
+
+    public home(String username) {
+        initComponents();
+        this.loginname = username;
         getusername.setText(String.valueOf(loginname));
     }
-   
-    public static Connection myConnection(){
-    Connection con = null;
-    try{
-        Class.forName("com.mysql.jdbc.Driver");
-        String connectionUrl="jdbc:mysql://localhost:3306/library?"+"user=root&&password=";
-        con=DriverManager.getConnection(connectionUrl);
-        }   catch (ClassNotFoundException | SQLException ex) {
+
+    public static Connection myConnection() {
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String connectionUrl = "jdbc:mysql://localhost:3306/library?" + "user=root&&password=";
+            con = DriverManager.getConnection(connectionUrl);
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
         return con;
     }
-    
- private void setViewData(){
 
-    Connection con = myConnection();
+    public void IssueData() {
 
-       try{
+        Connection con = myConnection();
 
-           java.sql.PreparedStatement prest;
+        try {
 
-           String sql ="select * from issue";
+            java.sql.PreparedStatement prest;
 
-           prest= con.prepareStatement(sql);
+            String sql = "select * from issue";
 
-           ResultSet rs = prest.executeQuery(sql);
+            prest = con.prepareStatement(sql);
 
-           while(rs.next()){
+            ResultSet rs = prest.executeQuery(sql);
 
-                   String iid  = String.valueOf(rs.getInt("issue_id"));
+            while (rs.next()) {
 
-                   String fn = rs.getString("bname");
+                String iid = String.valueOf(rs.getInt("issue_id"));
 
-                   String mn = rs.getString("student_name");
-//                   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//                  String  issuefr = rs.getString("sdf.format(i_date)");
-//                  String  issueto = rs.getString("sdf.format(d_date)");
+                String fn = rs.getString("bname");
 
-                 String issuedate = rs.getString("i_date");
-                 String duedate  = rs.getString("d_date");
-            
+                String mn = rs.getString("student_name");
 
-                  String tbData[]={iid,fn,mn,issuedate,duedate};
+                String issuedate = rs.getString("i_date");
+                
+                String duedate = rs.getString("d_date");
 
-                 DefaultTableModel tblModel=(DefaultTableModel)rSTableMetro1.getModel();
+                String tbData[] = {iid, fn, mn, issuedate, duedate};
 
-                 tblModel.addRow(tbData);
-          }
-            } catch (SQLException ex) {
+                DefaultTableModel tblModel = (DefaultTableModel) setView.getModel();
+
+                tblModel.addRow(tbData);
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(managebooks.class.getName()).log(Level.SEVERE, null, ex);
         }
-  }
- public void clearTable(){
-        DefaultTableModel tblModel=(DefaultTableModel)rSTableMetro1.getModel();
-
-                 tblModel.setRowCount(0);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -108,7 +99,7 @@ public class home extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        rSTableMetro1 = new rojeru_san.complementos.RSTableMetro();
+        setView = new rojeru_san.complementos.RSTableMetro();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -170,7 +161,7 @@ public class home extends javax.swing.JFrame {
         });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, -1, 50));
 
-        rSTableMetro1.setModel(new javax.swing.table.DefaultTableModel(
+        setView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -178,18 +169,13 @@ public class home extends javax.swing.JFrame {
                 "id", "Book Name", "Student Name", "Issue Date", "Due Date"
             }
         ));
-        rSTableMetro1.setColorFilasBackgound2(new java.awt.Color(255, 255, 255));
-        rSTableMetro1.setFuenteFilas(new java.awt.Font("Yu Gothic Medium", 3, 12)); // NOI18N
-        rSTableMetro1.setFuenteFilasSelect(new java.awt.Font("Yu Gothic Medium", 3, 12)); // NOI18N
-        rSTableMetro1.setFuenteHead(new java.awt.Font("Yu Gothic Medium", 3, 12)); // NOI18N
-        rSTableMetro1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rSTableMetro1MouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(rSTableMetro1);
+        setView.setColorFilasBackgound2(new java.awt.Color(255, 255, 255));
+        setView.setFuenteFilas(new java.awt.Font("Yu Gothic Medium", 3, 12)); // NOI18N
+        setView.setFuenteFilasSelect(new java.awt.Font("Yu Gothic Medium", 3, 12)); // NOI18N
+        setView.setFuenteHead(new java.awt.Font("Yu Gothic Medium", 3, 12)); // NOI18N
+        jScrollPane1.setViewportView(setView);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 900, 300));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 900, 300));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/home.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -200,9 +186,9 @@ public class home extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-                     dispose();
-                    new newstudent(loginname).setVisible(true);    
+
+        dispose();
+        new newstudent(loginname).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -214,64 +200,22 @@ public class home extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-                 dispose();
-                 new newbook().setVisible(true);
+        dispose();
+        new newbook().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        
-                  dispose();
-                 new issuebook().setVisible(true);
+
+        dispose();
+        new issuebook().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-                 dispose();
-                 new returnbook().setVisible(true);
+        dispose();
+        new returnbook().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void rSTableMetro1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rSTableMetro1MouseClicked
-        // TODO add your handling code here:
-
-        /*     b_id=Integer.parseInt(rSTableMetro1.getValueAt(rSTableMetro1.getSelectedRow(),0).toString());
-
-        //System.out.println(id);
-
-        Connection con = myConnection();
-
-        try{
-
-            PreparedStatement prest;
-
-            String sql ="select * from addbook where b_id="+b_id;
-
-            prest= con.prepareStatement(sql);
-
-            ResultSet rs = prest.executeQuery(sql);// PreparedStatement object’s executeQuery () method is called to execute the SQL SELECT statement, returning a ResultSet into rs.
-
-            while(rs.next()){
-
-                t.setText(rs.getString(2));// Retrieves value of the second column in the current row, which is the username field
-
-                a.setText(rs.getString(3));
-
-                c.setText(rs.getString(4));
-
-                y.setText(rs.getString(4));
-
-            }
-
-            rs.close();
-
-            prest.close();
-
-        } catch (SQLException ex) {
-
-            Logger.getLogger(managebooks.class.getName()).log(Level.SEVERE, null, ex);
-
-        }*/
-    }//GEN-LAST:event_rSTableMetro1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -315,6 +259,6 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private rojeru_san.complementos.RSTableMetro rSTableMetro1;
+    public rojeru_san.complementos.RSTableMetro setView;
     // End of variables declaration//GEN-END:variables
 }

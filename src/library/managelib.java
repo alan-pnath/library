@@ -71,7 +71,7 @@ private void setPersonTableData() {
 
             while(rs.next()){
 
-                   String id  = String.valueOf(rs.getInt("user_id"));
+                   String id  = String.valueOf(rs.getInt("id"));
 
                    String fn = rs.getString("first_name");
 
